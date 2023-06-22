@@ -50,10 +50,11 @@ One of the variables in the dataset is `revolutions`, the number of revolutions,
 
 ```{r}
 library(modelsummary); library(tidyverse)
-GrowthSW$treat <- ifelse(GrowthSW$revolutions == 0, "0", " > 0 ")
-GrowthSW_table <- datasummary(formula = growth + rgdp60 ~ Mean + Median + SD + Min + Max,
-            by = "treat",
-            data = GrowthSW)
+GrowthSW$treat <- ifelse(GrowthSW$revolutions == 0, "0 revolutions", " > 0 revolutions ")
+GrowthSW_table <- datasummary(
+  growth + rgdp60 ~ Factor(treat) * (Mean + Median + SD + Min + Max), 
+  data = GrowthSW
+)
 GrowthSW_table
 # write your code here
 ```
